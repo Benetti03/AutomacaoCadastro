@@ -1,0 +1,80 @@
+import pyautogui
+import time
+
+#pyautogui.press -> clicar numa tecla
+#pyautogui.write -> escrever um texto
+#pyautogui.click -> clicar numa posição da tela
+#pyautogui.moveTo -> mover o cursor do mouse para uma posição da tela
+#pyautogui.moveRel -> mover o cursor do mouse para uma posição relativa a posição atual do mouse
+#pyautogui.screenshot -> tirar um print da tela
+#pyautogui.locateOnScreen -> localizar uma imagem na tela
+#pyautogui.hotkey -> apertar uma combinação de teclas (ctrl + c, ctrl + v, etc), por exemplo
+#pyautogui.hotkey('ctrl', 'c')
+#pyautogui.FAILSAFE = True # Se o mouse for para o canto superior esquerdo da tela, o programa para
+
+pyautogui.PAUSE = .5 # Pausa de 0.5 segundos entre cada ação do seu código
+
+#abrir o navegador
+pyautogui.press('win')
+pyautogui.write('opera gx')
+pyautogui.press('enter')
+
+#escrever o link do site
+pyautogui.write("https://dlp.hashtagtreinamentos.com/python/intensivao/login")
+pyautogui.press('enter')
+
+#esperar o site carregar
+time.sleep(8)
+
+#Fazer login
+pyautogui.press('tab') #campo do email
+pyautogui.write('algo@gmail.com') #email
+pyautogui.press('tab') #campo da senha
+pyautogui.write('hashtag123') #senha
+pyautogui.press('enter') #clicar no botão de login
+
+time.sleep(3)
+
+#Passo 3: Importando base de dados
+import pandas 
+
+tabela = pandas.read_csv('produtos.csv') #lendo a base de dados
+
+print(tabela)
+
+for linha in tabela.index:
+    pyautogui.click(x=650, y=307)
+
+    codigo = tabela.loc[linha, 'codigo'] #pegar o valor da coluna codigo da linha atual
+    pyautogui.write(codigo)
+    pyautogui.press('tab') 
+
+    marca = tabela.loc[linha, 'marca'] 
+    pyautogui.write(marca)
+    pyautogui.press('tab') 
+
+    tipo = tabela.loc[linha, 'tipo'] 
+    pyautogui.write(tipo)
+    pyautogui.press('tab') 
+
+    categoria = tabela.loc[linha, 'categoria'] 
+    pyautogui.write(str(categoria))
+    pyautogui.press('tab') 
+
+    preco_unitario = tabela.loc[linha, 'preco_unitario']
+    pyautogui.write(str(preco_unitario)) #converter o valor para string
+    pyautogui.press('tab') 
+
+    custo = tabela.loc[linha, 'custo']
+    pyautogui.write(str(custo)) #converter o valor para string
+    pyautogui.press('tab')
+
+    obs = tabela.loc[linha, 'obs']
+
+    if obs != 'nan':
+        pyautogui.write(str(obs)) #converter o valor para string
+
+    pyautogui.press('tab')
+    pyautogui.press('enter') 
+
+    pyautogui.scroll(10000)
